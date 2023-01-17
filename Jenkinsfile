@@ -64,7 +64,7 @@ pipeline {
         // Cloning Git repo
         stage ('cloning Git') {
             steps {
-                checkout scmGit(branches: [[name: '*/code-challenge']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/mehoussou/my-remote-code/tree/code-challenge']])
+                checkout scmGit(branches: [[name: '*/code-challenge']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/mehoussou/my-remote-code']])
                 
             }
         }
