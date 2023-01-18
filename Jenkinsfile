@@ -64,7 +64,7 @@ pipeline {
         // Cloning Git repo
         stage ('cloning Git') {
             steps {
-                checkout scmGit(branches: [[name: '*/code-challenge']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/mehoussou/my-remote-code']])
+                checkout scmGit(branches: [[name: '*/code-challenge']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/mehoussou/my-remote-code/tree/code-challenge']])
                 
             }
         }
@@ -73,13 +73,13 @@ pipeline {
                       
         stage ('Docker Build') {
             steps {
-                script {
-        //dockerImage = docker.build registry
-                        docker build -t my-code-chall .
-                }        
-            } 
-        }
+                    script {
+                        dockerImage = docker.build registry
+                    }
+                
+            }
                
+        }
         //Login and Push images to AWS ECR repository
         stage ('Docker Push') {
             steps {
@@ -107,67 +107,3 @@ pipeline {
         }
     }
 }
-
-
-
-
-
-
-// registry = "public.ecr.aws/v3f8i0q6/backend-app"
-// service = "backend-app"
-// pipeline {
-//     agent none
-
-//   stages {
-      
-//         stage ('checkout') {
-//             steps {
-//                 checkout scmGit(branches: [[name: '*/mypublic']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/mehoussou/my-code-remote']])
-                
-//             }
-//         }
-//     }
-      
-//     stage ("Build Image"){
-//         agent any
-//         steps{
-//             echo registry
-//             echo service
-//             echo  registry + "/" + service + ":rc-" + BUILD_NUMBER
-//             sh " docker build . -t  ${registry}/${service}:rc-${BUILD_NUMBER}"
-//         }
-//     }
-//      stage('Login to ecr') {
-//         agent any
-//         steps {
-//             script{
-//                 echo service
-//                 withAWS(region:'us-east-2', credentials:'ecr-creds') {
-//                     sh " aws ecr get-login-password | docker login  -u AWS --password-stdin  ${registry}"
-//                 }
-//             }
-//         }
-//     }
-//     stage('push image') {
-//         agent any
-//         steps {
-//             script{
-//                 echo service
-//                 withAWS(region:'us-east-2', credentials:'ecr-creds') {
-//                     sh "docker push ${registry}/${service}:rc-${BUILD_NUMBER} "
-//                 }
-//             }
-//         }
-//     }
-
-//     stage('deploy to ecs') {
-//         agent any
-//         steps {
-//             script {
-
-//             }
-//         }
-//     }
-
-//   }
-    
