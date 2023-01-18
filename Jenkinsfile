@@ -74,10 +74,9 @@ pipeline {
         stage ('Docker Build') {
             steps {
                 script {
-                            //dockerImage = docker.build registry
+        //dockerImage = docker.build registry
                         docker build -t my-code-chall .
-                }
-                        
+                }        
             } 
         }
                
