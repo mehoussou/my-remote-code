@@ -73,8 +73,13 @@ pipeline {
                       
         stage ('Docker Build') {
             steps {
-                    script {
-                        dockerImage = docker.build registry
+                  script {
+                        dir('my-local-code/backend/') {
+                            dockerImage = docker.build registry
+
+                        }
+                        
+                        
                     }
                 
             }
