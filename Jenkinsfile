@@ -73,18 +73,14 @@ pipeline {
                       
         stage ('Docker Build') {
             steps {
-                  script {
-                        dir('my-local-code/backend/') {
-                            dockerImage = docker.build registry
-
+                script {
+                            //dockerImage = docker.build registry
+                            docker build -t my-code-chall .
                         }
                         
-                        
-                    }
-                
-            }
-               
+            } 
         }
+               
         //Login and Push images to AWS ECR repository
         stage ('Docker Push') {
             steps {
